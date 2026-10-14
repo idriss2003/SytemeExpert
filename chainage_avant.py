@@ -1,34 +1,34 @@
 from regles import REGLES, ANIMAUX_FINAUX
 
 
-def chainage_avant(faits_initiaux):
-    base_faits = set(faits_initiaux)
+def chainage_avant(F_init):
+    BF = set(F_init)
     trace = []
-    regles_declenchees = set()
+    regles_dec = set()
 
-    changement = True
+    chang = True
 
-    while changement:
-        changement = False
+    while chang:
+        chang = False
 
-        for identifiant, conditions, conclusion in REGLES:
-            if identifiant in regles_declenchees:
+        for id, conditions, conclusion in REGLES:
+            if id in regles_dec:
                 continue
 
-            if conditions.issubset(base_faits) and conclusion not in base_faits:
-                base_faits.add(conclusion)
-                regles_declenchees.add(identifiant)
-                changement = True
+            if conditions.issubset(BF) and conclusion not in BF:
+                BF.add(conclusion)
+                regles_dec.add(id)
+                chang = True
 
                 trace.append(
                     {
-                        "regle": identifiant,
+                        "regle": id,
                         "conditions": sorted(list(conditions)),
                         "conclusion": conclusion,
-                        "base_apres": sorted(list(base_faits)),
+                        "base_apres": sorted(list(BF)),
                     }
                 )
 
-    animaux_trouves = [animal for animal in ANIMAUX_FINAUX if animal in base_faits]
+    animaux_trouves = [animal for animal in ANIMAUX_FINAUX if animal in BF]
 
-    return base_faits, trace, animaux_trouves
+    return BF, trace, animaux_trouves

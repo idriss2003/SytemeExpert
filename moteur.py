@@ -3,34 +3,34 @@
 from regles import REGLES, ANIMAUX_FINAUX
 
 
-def regle_applicable(base_faits, conditions):
-    return conditions.issubset(base_faits)
+def regle_applic(BF, conditions):
+    return conditions.issubset(BF)
 
 
-def appliquer_regle(base_faits, regle):
-    identifiant, conditions, conclusion = regle
+def appliq_regle(BF, regle):
+    id, conditions, conclusion = regle
 
-    if regle_applicable(base_faits, conditions) and conclusion not in base_faits:
-        base_faits.add(conclusion)
+    if regle_applic(BF, conditions) and conclusion not in BF:
+        BF.add(conclusion)
         return True
 
     return False
 
 
-def trouver_regles_conclusion(but):
-    regles_trouvees = []
+def regle_conclut(but):
+    regles_trvs = []
 
     for regle in REGLES:
-        identifiant, conditions, conclusion = regle
+        id, conditions, conclusion = regle
         if conclusion == but:
-            regles_trouvees.append(regle)
+            regles_trvs.append(regle)
 
-    return regles_trouvees
+    return regles_trvs
 
 
-def est_animal_final(fait):
+def animal_final(fait):
     return fait in ANIMAUX_FINAUX
 
 
-def animaux_dans_base(base_faits):
-    return [fait for fait in ANIMAUX_FINAUX if fait in base_faits]
+def animaux_in_BF(BF):
+    return [fait for fait in ANIMAUX_FINAUX if fait in BF]
